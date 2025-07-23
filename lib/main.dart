@@ -14,6 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+
 import 'contant/native_bridge.dart';
 
 void main() async {
