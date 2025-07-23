@@ -83,7 +83,7 @@ class OpenListScreen extends StatelessWidget {
                 Android().startService();
               }),
         ),
-        body: Obx(() => LogListView(logs: ui.logs.value)));
+        body: Obx(() => LogListView(logs: ui.logs, controller: ui.scrollController)));
   }
 }
 
@@ -111,6 +111,8 @@ class OpenListController extends GetxController {
 
   var logs = <Log>[].obs;
 
+  ScrollController get scrollController => _scrollController;
+
   void clearLog() {
     logs.clear();
   }
@@ -128,5 +130,11 @@ class OpenListController extends GetxController {
     Android().isRunning().then((value) => isSwitch.value = value);
 
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    _scrollController.dispose();
+    super.onClose();
   }
 }

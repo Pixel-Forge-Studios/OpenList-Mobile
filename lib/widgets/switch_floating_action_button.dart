@@ -56,7 +56,7 @@ class _SwitchFloatingButtonState extends State<SwitchFloatingButton>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 }

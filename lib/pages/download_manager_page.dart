@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class _DownloadManagerPageState extends State<DownloadManagerPage>
   bool _isLoading = true;
   String? _downloadPath;
   late TabController _tabController;
+  StreamSubscription? _periodicSubscription;
 
   @override
   void initState() {
@@ -32,13 +34,14 @@ class _DownloadManagerPageState extends State<DownloadManagerPage>
 
   @override
   void dispose() {
+    _periodicSubscription?.cancel();
     _tabController.dispose();
     super.dispose();
   }
 
   void _startPeriodicRefresh() {
     // 每秒刷新一次活跃任务状态
-    Stream.periodic(const Duration(seconds: 1)).listen((_) {
+    _periodicSubscription = Stream.periodic(const Duration(seconds: 1)).listen((_) {
       if (mounted && _tabController.index == 0) {
         setState(() {});
       }
